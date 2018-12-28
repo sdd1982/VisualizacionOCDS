@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<title lang="es">CCE OCDS</title>
+		<meta name="keywords" content="OCDS, SECOP1, SECOP2, TVEC" lang="es" />
+		<meta name="description" content="Visualización de los datos de SECOP1, SECOP2 y TVEC en formato OCDS" lang="es" />
+		<meta name="author" content="Desarrollo: Saulo David Daza Sierra" />
+		<meta http-equiv="X-UA-Compatible" content="IE=10" />
+		<link rel="shortcut icon" href="https://www.colombiacompra.gov.co/sites/cce_public/files/cce_logo_fvn_0.png" type="image/png" />
+
+		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_t3WLwk4T6RWabsw_EiLjNw5ua41CCruiHjKU0Gq6y5E.css" media="all" />
+		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_Mg9E2AH2E0kfDKUEgBGEkbBvvSMsSNZEgG8uAk0RO2M.css" media="all" />
+		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_TKIcj8kZJ9hXObIDmXd_XaR0PyTMdfYR7pRGVqayL2c.css" media="screen" />
+		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_zNcrf7d9imGlHycXINa6co7NaZqO9ovoldqebCsLWS4.css" media="all" />
+		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_K19wk5lcTRhsxJezh2fj4AdLYgKcduMP2qHMwcXW05g.css" media="all" />
+
+ 		<link rel="stylesheet" type="text/css" href="visualization/css/dc.css" />
+		<script src="visualization/js/d3.js"></script>
+		<script src="visualization/js/crossfilter.js"></script>
+		<script src="visualization/js/dc.js"></script>
+
+		<script src="visualization/lib/jquery.min.js"></script> 
+		<script src="visualization/lib/bootstrap.bundle.min.js"></script> 
+		<script src="visualization/lib/jquery.easing.min.js"></script>
+		
+	</head>
+
+	<body>
+		<div class="large-6 columns">
+			<div class="form-item form-type-select form-item-title">
+				<label>Seguimiento a la gestión contractual de las entidades</label>
+				<br />
+				<p><span  style="font-size:12px">Los filtros por orden y sector aplican solo para la Tienda Virtual</span></p>
+			</div>
+		</div>
+		<div class="filters">
+			<form id="myFilters" class="data_form cce-ocds-data-form" name="filters">
+	 			<div class="large-6 columns">
+					<div class="form-item form-type-select form-item-order">
+						<label for="order">Orden</label>
+						<select class="form-control" id="order"> 
+							<option value="ALL">Seleccione...</option>                
+							<option value="Nacional">Nacional</option>                
+							<option value="Territorial">Territorial</option>                
+	                    </select>
+					</div>
+				</div>
+				<div class="large-6 columns">
+					<div class="form-item form-type-select form-item-sector">
+						<label for="sector">Sector</label>
+						<select class="form-control" id="sector">
+							<option value="ALL">Cargando, por favor espere</option>                 
+	                    </select>
+					</div>
+				</div> 
+				<div class="large-6 columns">
+					<div class="form-item form-type-select form-item-buyer">
+						<label for="buyer">Entidad compradora</label>   
+						<select id="buyer" class="form-control">                
+							<option value="ALL">Cargando, por favor espere</option>                 
+						</select>
+					</div>
+				</div>
+				<div class="large-6 columns">
+					<div class="form-item form-submit">
+						<input id="clickMe" type="button" value="Filtrar" onclick="filter();" class="btn btn-success btnWidth" />
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="large-6 columns" id="loading">
+			<div id="gloader-box">
+				<div class="gloader-image">
+					<img src="https://www.colombiacompra.gov.co/sites/cce_public/modules/custom/cce_gloader/images/loader.gif" alt="" />    
+				</div>
+				<div class="gloader-message">Cargando...</div>        
+			</div>
+		</div>
+		<div class="large-6 columns" id="tipoproceso">
+			<div class="title">Tipos de proceso</div>
+			<div id="medium-array-pie"></div>
+		</div>
+		<div class="large-6 columns" id ="detalleproceso">
+			<div class="title">Detalle del tipo de proceso</div>
+			<div id="states-pie"></div>
+		</div>
+		<div class="large-6 columns" id = "fechaproceso">
+			<div class="title">Fechas del proceso</div>
+			<div id="dates-bars"></div>
+		</div>
+		<script>
+			document.getElementById("clickMe").onclick = filter;
+		
+			function filter() {
+				console.log("filter");
+				
+				$("#medium-array-pie").empty();
+				$("#states-pie").empty();
+				$("#dates-bars").empty();
+	
+				var sector = document.getElementById("sector").value;
+				var orden = document.getElementById("order").value;
+				var entidad = document.getElementById("buyer").value;
+				console.log("sector: " + sector + " - orden: " + orden + " - entidad: " + entidad);
+				var filtros = "";
+				if(orden != "ALL") {
+					filtros = "parties.0.details.order," + orden;
+				}
+				if(sector != "ALL") {
+					if(filtros != "") {
+						filtros = filtros + ","
+					}
+					filtros = filtros + "parties.0.details.sector," + sector;
+				}
+				if(entidad != "ALL") {
+					if(filtros != "") {
+						filtros = filtros + ","
+					}
+					filtros = filtros + "parties.0.identifier.id," + entidad;
+				}
+				if(filtros == "") {
+					filtros = "none";
+				}
+				
+				var URL_estadisticas = host + "/apiCCE2.0/rest/releases/statisticsByProcurement/" + filtros;
+				console.log(URL_estadisticas);
+				cargarVisualizacion(URL_estadisticas);
+			}
+	  
+			var host = window.location.protocol + '//' + window.location.host; //"http://localhost:8080";
+			var url = host + "/apiCCE2.0/rest/releases/statisticsByProcurement/none";
+			url = "https://raw.githubusercontent.com/sdd1982/visualizacion/master/estadisticas_conteo.json";
+		
+			var departamentos = new Array();
+			cargarSelect();
+			cargarVisualizacion(url);
+			
+			function cargarSelect() {
+				var api = host + "/apiCCE2.0/rest/releases/";
+				d3.json(api+"darSectores", function(data){
+					$("#sector").empty();
+					$("#sector").append('<option value="ALL">Seleccione...</option>'); 
+					var tmpAry = new Array();
+				    for (var i=0;i<data.sectores.length;i++) {
+				        tmpAry[i] = data.sectores[i];
+				    }
+				    tmpAry.sort();
+					for (var i=0; i<tmpAry.length; i++){
+						if(tmpAry[i] != "") {
+						    $("#sector").append('<option value="' + tmpAry[i] + '">' + tmpAry[i] + '</option>'); 
+						}
+					}     
+				});
+				d3.json(api+"darEntidades", function(data){
+					$("#buyer").empty();
+					$("#buyer").append('<option value="ALL">Seleccione...</option>'); 
+					var tmpAry = new Array();
+				    for (var i=0;i<data.entidades.length;i++) {
+				        tmpAry[i] = new Array();
+				        tmpAry[i][0] = data.entidades[i].legalName;
+				        tmpAry[i][1] = data.entidades[i].id;
+				    }
+				    tmpAry.sort();
+					for (var i=0; i<tmpAry.length; i++){
+						if(tmpAry[i] != "") {
+						    $("#buyer").append('<option value="' + tmpAry[i][1] + '">' + tmpAry[i][0] + '</option>'); 
+						}
+					}     
+				});
+				
+			} 
+			function cargarVisualizacion(url) {
+				document.getElementById("loading").style.display = "block";
+				document.getElementById("tipoproceso").style.display = "none";
+				document.getElementById("detalleproceso").style.display = "none";
+				document.getElementById("fechaproceso").style.display = "none";
+			    d3.json(url, function(data){
+			    	console.log(url);
+					
+			    	if(typeof data !== "undefined" && data != null && typeof data.estadisticas !== "undefined") {
+						document.getElementById("tipoproceso").style.display = "block";
+						document.getElementById("detalleproceso").style.display = "block";
+						document.getElementById("fechaproceso").style.display = "block";
+				    	data.estadisticas.forEach(function(d) {
+				    		if(typeof d._id.entidad != "undefined" && typeof d._id.entidad.id !== "undefined") {
+				    			d._id.entidad.id = +d._id.entidad.id.substring(6)
+				    		}
+				        });
+						console.log("crossfilter");
+						var cf = crossfilter(data.estadisticas);
+						
+				        // tell crossfilter that this dimension isArray=true
+				 		var mediumDim = cf.dimension(function(d){ return typeof d._id.tipo !== "undefined" ? d._id.tipo : "No definido";});
+						var mediumGroup = mediumDim.group().reduceSum(function(d){ return d.count; });
+				
+						console.log("#medium-array-pie");
+				
+						var mediumArrayPieChart = dc.pieChart("#medium-array-pie")
+				    	    .height(250)
+				    	    .width(250)
+				    	    .dimension(mediumDim)
+				    	    .group(mediumGroup);
+				
+				        // leave crossfilter isArray default (false)
+				 		var statesDim = cf.dimension(function(d){ return typeof d._id.detalle !== "undefined" ? d._id.detalle : "No definido";});
+						var stateGroup = statesDim.group().reduceSum(function(d){ return d.count; });
+				
+						console.log("#states-pie");
+				
+						var statesPieChart = dc.rowChart("#states-pie")
+				    	    .renderLabel(true)
+				    	    .height(250)
+				            .width(600)
+				    	    .dimension(statesDim)
+				    	    .group(stateGroup)
+				    	    .cap(10)
+				    	    .ordering(function(d){return -d.value;})
+				    	    .xAxis().ticks(4); 
+				 
+				        // leave crossfilter isArray default (false)
+						var formatDate = d3.time.format("%Y-%m-%d");
+						var dateFormat = d3.time.format("%Y-%m");
+				
+						var datesDim = cf.dimension(function(d){ return dateFormat.parse(d._id.year+"-"+d._id.month); });
+						var datesGroup = datesDim.group().reduceSum(function(d){ return d.count; });
+						
+						
+						console.log("#dates-bars");
+						
+						var datesBarChart = dc.barChart("#dates-bars")
+				    	    .width(600)
+				    	    .height(250)
+				    	    .transitionDuration(800)
+				    	    .margins({top: 10, right: 50, bottom: 30, left: 80})
+				    	    .dimension(datesDim)
+				    	    .group(datesGroup)  
+				    	    .round(d3.time.months.round)
+				    	    .x(d3.time.scale().domain([dateFormat.parse("2011-01"), dateFormat.parse("2018-12")]))
+				    	    .xUnits(d3.time.months)
+				    	    .centerBar(false)
+				    	    .renderHorizontalGridLines(true)       
+				    	    .brushOn(true)
+				    	    .xAxis().tickFormat(d3.time.format('%m %Y')); 
+				    
+						console.log("va a pintar");
+						dc.renderAll();	
+			    	}
+			    	document.getElementById("loading").style.display = "none";
+			    });
+			}
+		</script>
+	
+	</body>
+</html>
