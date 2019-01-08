@@ -15,3 +15,22 @@ Esta visualización está hecha haciendo uso de la librería D3.js, y utiliza el
 
 ---
 La estructura del directorio es que en la raíz del WebContent se encuentra la visualización y en la carpeta table, la vista de tabla
+
+---
+** Display data in OCDS format **
+
+This repository contains two data visualizations, in OCDS format:
+
+1. Table view
+2. Data visualization
+
+## Table view
+In this view you can read the data of an API, applying search criteria. The data can be displayed in a paired way (the same as the API) and can be downloaded in CSV format. Although the view can be reduced in quantity of data, when downloading the file you can see all the data of the standard.
+
+## Data visualization
+This visualization is made using the D3.js library, and uses the crossfilter visualization scheme. The visualization allows to follow the contractual management of the entities allowing to visualize the percentages of hiring. This visualization complies with the following characteristics:
+1. drill down at entity level
+2. See behavior by entity, order and sector
+
+---
+The structure of the directory is that at the root of the WebContent is the visualization and in the table folder, the table view
