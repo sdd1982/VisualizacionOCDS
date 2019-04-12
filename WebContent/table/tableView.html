@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
-<html lang="es">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<head>
 		<meta charset="utf-8">
 		<title lang="es">CCE OCDS</title>
@@ -9,114 +11,205 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=10" />
 		<link rel="shortcut icon" href="https://www.colombiacompra.gov.co/sites/cce_public/files/cce_logo_fvn_0.png" type="image/png" />
 
-		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_t3WLwk4T6RWabsw_EiLjNw5ua41CCruiHjKU0Gq6y5E.css" media="all" />
-		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_Mg9E2AH2E0kfDKUEgBGEkbBvvSMsSNZEgG8uAk0RO2M.css" media="all" />
+		<!-- css -->
+		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_QlzdGN-x5fQUBKJMD7D2HFRERJfxsx5mJiGGJEb2bMQ.css" media="all" />
 		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_TKIcj8kZJ9hXObIDmXd_XaR0PyTMdfYR7pRGVqayL2c.css" media="screen" />
-		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_zNcrf7d9imGlHycXINa6co7NaZqO9ovoldqebCsLWS4.css" media="all" />
-		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_K19wk5lcTRhsxJezh2fj4AdLYgKcduMP2qHMwcXW05g.css" media="all" />
-
+		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_EHQHTj0vaOfvcH_-dglTIcuRvsS9iuAlou8keF_ZKJc.css" media="all" />
+		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_0BteMrFTTPUBOGgks1c5GJkXFimIOeCBPWJ09stUVL4.css" media="all" />
 		<!-- JSON5 parser from http://konklone.io/json/assets -->
 		<script src='js/json5-2.1.0.min.js'></script>
 		<script src="js/site.js"></script>
 		<script src="js/highlight.pack.js"></script>
+		<script src="js/d3.js"></script>
 		
 		<script src='js/jquery-2.1.1.min.js'></script>
 		<script src="js/jquery.csv.js"></script>
 		<script src="filtros.js"></script>
+		<style type="text/css">
+table {
+  font-family: "Helvetica", "Lucida Sans", "Lucida Sans Unicode", "Luxi Sans", Tahoma, sans-serif;
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+table {
+  margin: auto;
+}
+table, td, th {
+  padding: 7px;
+  text-align: center;
+  border: 1px solid rgb(8,48,107);
+}
+th {
+  background-color: rgb(8,81,156);
+  color: white;
+}
+</style>
 	</head>
 	<body>
 		<div id="main-content" class="l-content large-6 columns" role="main" >
 			<h1>Búsqueda</h1>
-			<p><span style="line-height: 20.8px;">Consulte&nbsp;los Procesos de Contratacion en el SECOP utilizando&nbsp;los siguientes&nbsp;filtros de busqueda haciendo click en Buscar.</span></p>
+			<p><span style="line-height: 20.8px;">Consulte los Procesos de Contratacion en el SECOP utilizando los siguientes filtros de busqueda y haciendo click en Filtrar.</span></p>
+			<p><span style="line-height: 20.8px;">La opción de descarga le permite descargar los documentos de la página actual. Si desea descargar más documentos, debe navegar a través de las páginas.</span></p>
+			<p><span style="line-height: 20.8px;">Tenga habilitada la opción de ventanas emergentes, para cuando desee descargar la información en formato CSV</span></p>
+			<p><span style="line-height: 20.8px;">Debido a la fuente de información, usted va a ver algunas líneas de CSV partidas. Esto es porque la información está con saltos de línea</span></p>
 		</div>
 		<form id="myFilters" class="data_form cce-ocds-data-form" name="filters">
-			<div class="large-6 columns">
-				<div class="form-item form-type-select form-item-tender-status">
-					<input type="radio" name="filter" value="tender.status">
-					<label for="edit-tender.status">Estado del proceso </label>
-					<select class="" id="tender.status" name="tender.status">
-						<option value="planning">En planeación</option>
-						<option value="planned">Planeado</option>
-						<option value="active">Activo</option>
-						<option value="cancelled">Cancelado</option>
-						<option value="unsuccessful">No exitoso</option>
-						<option value="complete">Completado</option>
-						<option value="withdrawn">Retirado</option>
-					</select>
-				</div>
-			</div>
-			<div class="large-6 columns">
-				<div class="form-item form-type-select form-item-tender-procurementMethod">
-					<input type="radio" name="filter" value="tender.procurementMethod">
-					<label for="edit-tender.procurementMethod">Tipo de proceso de contratación</label>
-					<select class="" id="tender.procurementMethod">
-						<option value="open">Abierto</option>
-						<option value="selective">Selección abreviada</option>
-						<option value="limited">Limitado</option>
-						<option value="direct">Directo</option>
-					</select>
-				</div>
-			</div>
-			<div class="large-6 columns">
-				<div class="form-item form-type-textfield form-item-buyer">
-					<input type="radio" name="filter" value="buyer">
-					<label>Comprador</label>
-					<label for="edit-identifier">ID del comprador</label>
-					<input class="" type="text" id="parties.identifier.id" name="parties.identifier.id" value="" size="60" maxlength="128" />
-				<!-- </div>
-			</div>
-			<div class="large-6 columns">
-				<div class="form-item form-type-textfield form-item-parties-identifier-legalName">
-					<label>&nbsp;</label> <br/> -->
-					<label for="edit-name">Nombre del comprador</label>
-					<input class="form-autocomplete" type="text" id="parties.identifier.legalName" name="parties.identifier.legalName" value="" size="60" maxlength="128" />
-				</div>
-			</div>
-			<div class="large-6 columns">
-				<div class="form-item form-type-select form-item-tag">
-					<input type="radio" name="filter" value="tag">
-					<label for="edit-tag">Etiqueta</label>
-					<select class="" id="tag">
-						<option value="planning">Planeación</option>
-						<option value="planningUpdate">Actualización de planeación</option>
-						<option value="tender">Licitación</option>
-						<option value="tenderAmendment">Adenda</option>
-						<option value="tenderUpdate">Actualización licitación</option>
-						<option value="tenderCancellation">Licitación cancelada</option>
-						<option value="award">Adjudicación</option>
-						<option value="awardUpdate">Actualización adjudicación</option>
-						<option value="awardCancellation">Adjudicación cancelada</option>
-						<option value="contract">Contrato</option>
-						<option value="contractUpdate">Contrato actualizado</option>
-						<option value="contractAmendment">Otro sí o prórroga a contrato</option>
-						<option value="implementation">Implementación</option>
-						<option value="implementationUpdate">Actualización implementación</option>
-						<option value="contractTermination">Contrato terminado</option>
-						<option value="compiled">Compilado</option>
-					</select>
-				</div>
-			</div>	
-			<div class="large-6 columns">
-				<div class="form-item form-type-select form-item-tender-submissionMethod">
-					<input type="radio" name="filter" value="tender.submissionMethod">
-					<label for="edit-tender.submissionMethod">Forma de participación</label>
-					<select class="" id="tender.submissionMethod">
-						<option value="electronicSubmission">Entrega electrónica</option>
-						<option value="electronicAuction">Actuación electrónica</option>
-						<option value="written">Escrita</option>
-						<option value="inPerson">En persona</option>
-					</select>
-				</div>
-			</div>
-			<div class="large-6 columns">
-				<div class="form-item form-submit">
-					<input id="clickMe" type="button" value="Filtrar" onclick="filter();" class="btn btn-success btnWidth" />
-				</div>
-			</div>
-			<div class="large-6 columns">
-				<div class="form-item form-submit" id="download">
-				</div>
-			</div>
+			<table>
+				<tr>
+					<th colspan="2">Estado del proceso</th>
+					<th colspan="2">Tipo de proceso de contratación (OCDS)</th>
+				</tr>
+				<tr>
+					<td width="5%">
+						<input type="radio" name="filter" value="tender.status">
+					</td>
+					<td width="45%">
+						<div>
+							<select class="" id="tender.status" name="tender.status">
+								<option value="planning">En planeación</option>
+								<option value="planned">Planeado</option>
+								<option value="active">Activo</option>
+								<option value="cancelled">Cancelado</option>
+								<option value="unsuccessful">No exitoso</option>
+								<option value="complete">Completado</option>
+								<option value="withdrawn">Retirado</option>
+							</select>
+						</div>
+					</td>
+					<td width="5%">
+							<input type="radio" name="filter" value="tender.procurementMethod">
+					</td>
+					<td width="45%">
+						<div>
+							<select class="" id="tender.procurementMethod">
+								<option value="open">Abierto</option>
+								<option value="selective">Selección abreviada</option>
+								<option value="limited">Limitado</option>
+								<option value="direct">Directo</option>
+							</select>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<th colspan="2">Entidad compradora</th>
+					<th colspan="2">Etiqueta (Tipo de información en el proceso)</th>
+				</tr>
+				<tr>
+					<td width="5%">
+						<input type="radio" name="filter" value="buyer">
+					</td>
+					<td width="45%">
+						<div>
+							<select id="buyer" class="form-control">                
+								<option value="ALL">Cargando, por favor espere</option>                 
+							</select>
+						</div>
+					</td>
+					<td width="5%">
+						<input type="radio" name="filter" value="tag">
+					</td>
+					<td width="45%">
+						<div>
+							<select class="" id="tag">
+								<option value="planning">Planeación</option>
+								<option value="planningUpdate">Actualización de planeación</option>
+								<option value="tender">Licitación</option>
+								<option value="tenderAmendment">Adenda</option>
+								<option value="tenderUpdate">Actualización licitación</option>
+								<option value="tenderCancellation">Licitación cancelada</option>
+								<option value="award">Adjudicación</option>
+								<option value="awardUpdate">Actualización adjudicación</option>
+								<option value="awardCancellation">Adjudicación cancelada</option>
+								<option value="contract">Contrato</option>
+								<option value="contractUpdate">Contrato actualizado</option>
+								<option value="contractAmendment">Otro sí o prórroga a contrato</option>
+								<option value="implementation">Implementación</option>
+								<option value="implementationUpdate">Actualización implementación</option>
+								<option value="contractTermination">Contrato terminado</option>
+								<option value="compiled">Compilado</option>
+							</select>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<th colspan="2">Fecha del proceso</th>
+					<th colspan="2">Fecha última actualización del proceso</th>
+				</tr>
+				<tr>
+					<td width="5%">
+						<input type="radio" name="filter" value="date">
+					</td>
+					<td width="45%">
+						<div>
+							<input type="date" autocomplete="off" id="date" placeholder="AAAA-MM-DD"
+							maxlength="10" data-date-format="YYYY-MM-DD" title="Debe escribir la fecha en formato AAAA-MM-DD (Año, mes día)"  value="">
+						</div>
+					</td>
+					<td width="5%">
+						<input type="radio" name="filter" value="lastUpdate">
+					</td>
+					<td width="45%">
+						<div>
+							<input type="date" autocomplete="off" id="lastUpdate" placeholder="AAAA-MM-DD"
+							maxlength="10" pattern="d{4}-d{2}-d{2}" title="Debe escribir la fecha en formato AAAA-MM-DD (Año, mes día)"  value="">
+						</div>
+					</td>
+				</tr>
+<!-- 				<tr>
+					<td width="50%">
+						<div>
+							<input type="radio" name="filter" value="tender.submissionMethod">
+							<label for="edit-tender.submissionMethod">Forma de participación</label>
+							<select class="" id="tender.submissionMethod">
+								<option value="electronicSubmission">Entrega electrónica</option>
+								<option value="electronicAuction">Actuación electrónica</option>
+								<option value="written">Escrita</option>
+								<option value="inPerson">En persona</option>
+							</select>
+						</div>
+					</td>
+					<td width="50%">
+						<div class="large-6 columns">
+							<div class="form-item form-submit">
+								<input id="clickMe2" type="button" value="Generar CSV según filtros" onclick="filter2();" class="btn btn-success btnWidth" />
+							</div>
+						</div>
+					</td>
+				</tr>
+ -->
+ 			</table>
+ 			<br />
+			<table>
+ 				<tr>
+					<td width="50%">
+						<div class="large-6 columns">
+							<div class="form-item form-submit">
+								<input id="clickMe" type="button" value="Filtrar" onclick="filter();" class="btn btn-success btnWidth" />
+							</div>
+						</div>
+					</td>
+					<td width="50%">
+						<div id="linkDownload" class="large-6 columns">
+							<div class="form-item form-submit" id="download">
+								<a id="test" href="">Test.xls</a>
+							</div>
+						</div>
+						<br>
+						<div id="linkDownload2" class="large-6 columns">
+							<div class="form-item form-submit" id="download2">
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			
+			<br />
+			
 		</form>
 		<div id="cargando">
 			<div id="gloader-box">
@@ -126,7 +219,7 @@
 				<div class="gloader-message">Cargando...</div>        
 			</div>
 	    </div>
-		<div id="mydiv"></div>
+		<div id="mydiv" style="height:400px; overflow-y:scroll;"></div>
 		<div id="navdiv"></div>
 		<div id="no_resultados">
 	        No hay resultados con sus criterios de búsqueda
@@ -139,6 +232,8 @@
 	        $('#cargando').hide();
 	    });
 
- 		
+		cargarSelect();
+		
+		
 	</script>
 </html>

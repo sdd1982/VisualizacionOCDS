@@ -16,7 +16,7 @@ div.dc-chart {
   fill: #ccc; }
 
 .dc-chart .pie-slice {
-  fill: #fff;
+  fill: #000;
   font-size: 12px;
   cursor: pointer; }
   .dc-chart .pie-slice.external {
@@ -98,7 +98,7 @@ div.dc-chart {
     fill-opacity: 0.6; }
 
 .dc-chart g.row text {
-  fill: #fff;
+  fill: #000;
   font-size: 12px;
   cursor: pointer; }
 
@@ -126,6 +126,7 @@ div.dc-chart {
 
 .dc-chart .node {
   font-size: 0.7em;
+  fill: #000;
   cursor: pointer; }
   .dc-chart .node :hover {
     fill-opacity: .8; }
@@ -201,7 +202,8 @@ div.dc-chart {
     font-weight: bold; }
 
 .dc-legend {
-  font-size: 11px; }
+  font-size: 11px;
+  fill: #000; }
   .dc-legend .dc-legend-item {
     cursor: pointer; }
 

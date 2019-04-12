@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<head>
+		<meta charset="utf-8">
+		<title lang="es">CCE OCDS</title>
+		<meta name="keywords" content="OCDS, SECOP1, SECOP2, TVEC" lang="es" />
+		<meta name="description" content="Visualización de los datos de SECOP1, SECOP2 y TVEC en formato OCDS" lang="es" />
+		<meta name="author" content="Desarrollo: Saulo David Daza Sierra" />
+		<meta http-equiv="X-UA-Compatible" content="IE=10" />
+		<link rel="shortcut icon" href="https://www.colombiacompra.gov.co/sites/cce_public/files/cce_logo_fvn_0.png" type="image/png" />
+
+		<!-- css -->
+		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_QlzdGN-x5fQUBKJMD7D2HFRERJfxsx5mJiGGJEb2bMQ.css" media="all" />
+		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_TKIcj8kZJ9hXObIDmXd_XaR0PyTMdfYR7pRGVqayL2c.css" media="screen" />
+		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_EHQHTj0vaOfvcH_-dglTIcuRvsS9iuAlou8keF_ZKJc.css" media="all" />
+		<link type="text/css" rel="stylesheet" href="https://www.colombiacompra.gov.co/sites/cce_public/files/css/css_0BteMrFTTPUBOGgks1c5GJkXFimIOeCBPWJ09stUVL4.css" media="all" />
+		<!-- JSON5 parser from http://konklone.io/json/assets -->
+		<script src='js/json5-2.1.0.min.js'></script>
+		<script src="js/site.js"></script>
+		<script src="js/highlight.pack.js"></script>
+		<script src="js/d3.js"></script>
+		
+		<script src='js/jquery-2.1.1.min.js'></script>
+		<script src="js/jquery.csv.js"></script>
+		<script src="filtros.js"></script>
+		<style type="text/css">
+table {
+  font-family: "Helvetica", "Lucida Sans", "Lucida Sans Unicode", "Luxi Sans", Tahoma, sans-serif;
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+table {
+  margin: auto;
+}
+table, td, th {
+  padding: 7px;
+  text-align: center;
+  border: 1px solid rgb(8,48,107);
+}
+th {
+  background-color: rgb(8,81,156);
+  color: white;
+}
+</style>
+	</head>
+	<body>
+		<div id="main-content" class="l-content large-6 columns" role="main" >
+			<div id="title">
+				<h1>Información del proceso de contratación XXXX</h1>
+			</div>
+			<div id="description">
+				<p><span style="line-height: 20.8px;">Aquí usted puede </span></p>
+			</div>
+		</div>
+		<table>
+			<tr>
+				<td>
+					<div id="gloader-box">
+						<div class="gloader-image">
+							<img src="https://www.colombiacompra.gov.co/sites/cce_public/modules/custom/cce_gloader/images/loader.gif" alt="" />    
+						</div>
+						<div class="gloader-message">Cargando...</div>        
+					</div>
+					<div id="mydiv" style="height:600px; overflow-y:scroll;"></div>
+					<div id="no_resultados">
+				        No hay información del proceso de contratación
+				    </div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="form-item form-submit">
+					<a href="./tableView.html">
+						<input type="button" value="Volver" />
+					</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</body>
+	<script type="text/javascript">
+		$(window).load(function () {
+			
+	        $('#no_resultados').hide();
+	        $('#cargando').show();
+	    });
+		var url_string = window.location.href
+		var url = new URL(url_string);
+		var ocid = url.searchParams.get("ocid");
+		var texto = "<p><span style=\"line-height: 20.8px;\">Aquí usted puede ver el detalle del proceso de contratación con OCID "+ ocid + "</span></p>"
+		$('#description').html(texto);
+		var titulo = "<h1>Proceso " + ocid + "</h1>"
+		$('#title').html(titulo);
+		cargarProceso(ocid);
+		
+		
+	</script>
+</html>
