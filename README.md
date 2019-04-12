@@ -8,6 +8,8 @@ Este repositorio contiene dos visualizaciones de datos, en formato OCDS:
 ## Vista de tabla
 En este vista se tiene la lectura de los datos de una API, aplicando criterios de búsqueda. Los datos se pueden visualizar de manera painada (la misma que utiliza la API) y se pueden descargar en formato CSV. Si bien la vista se puede ver reducida en cantidad de datos, al descargar el archivo se puede ver todos los datos del estándar.
 
+![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla.png?raw=true)
+
 ## Visualización de datos
 Esta visualización está hecha haciendo uso de la librería D3.js, y utiliza el esquema de visualización crossfilter. La visualización permite hacer seguimiento a la gestión contractual de las entidades permitiendo visualizar lo porcentajes de contratación. Esta visualización cumple con las siguientes carcaterísticas:
 1. drill down a nivel de entidad
