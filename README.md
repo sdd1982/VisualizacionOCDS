@@ -6,7 +6,7 @@ Este repositorio contiene dos visualizaciones de datos, en formato OCDS:
 2. Visualización de datos
 
 ## Vista de tabla
-En este vista se tiene la lectura de los datos de una API, aplicando criterios de búsqueda. Los datos se pueden visualizar de manera painada (la misma que utiliza la API) y se pueden descargar en formato CSV. Si bien la vista se puede ver reducida en cantidad de datos, al descargar el archivo se puede ver todos los datos del estándar.
+En este vista se tiene la lectura de los datos de una API, aplicando criterios de búsqueda. Los datos se pueden visualizar de manera painada (la misma que utiliza la API) y se pueden descargar en formato CSV. Si bien la vista se puede ver reducida en cantidad de datos, al descargar el archivo se puede ver todos los datos del estándar, o cuando seleccione la opción de Ver detalle, al lado derecho de cada fila resultado.
 
 ![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla.png?raw=true)
 
