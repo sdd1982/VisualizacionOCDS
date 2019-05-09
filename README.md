@@ -7,10 +7,15 @@ Este repositorio contiene dos visualizaciones de datos, en formato OCDS:
 
 ## Vista de tabla
 En este vista se tiene la lectura de los datos de una API, aplicando criterios de búsqueda. 
+
 ![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla.png?raw=true)
-Los datos se pueden visualizar de manera painada (la misma que utiliza la API) y se pueden descargar en formato CSV. Si bien la vista se puede ver reducida en cantidad de datos, al descargar el archivo se puede ver todos los datos del estándar.
+
+Los datos se pueden visualizar de manera paginada (la misma que utiliza la API) y se pueden descargar en formato CSV. Si bien la vista se puede ver reducida en cantidad de datos, al descargar el archivo se puede ver todos los datos del estándar.
+
 ![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla-resultados.png?raw=true)
+
 O cuando seleccione la opción de Ver detalle, al lado derecho de cada fila resultado.
+
 ![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla-detalle.png?raw=true)
 
 ## Visualización de datos
@@ -31,12 +36,23 @@ This repository contains two data visualizations, in OCDS format:
 2. Data visualization
 
 ## Table view
-In this view you can read the data of an API, applying search criteria. The data can be displayed in a paired way (the same as the API) and can be downloaded in CSV format. Although the view can be reduced in quantity of data, when downloading the file you can see all the data of the standard.
+In this view you can read the data of an API, applying search criteria. 
+
+![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla.png?raw=true)
+
+The data can be displayed in a paired way (the same as the API) and can be downloaded in CSV format. Although the view can be reduced in quantity of data, when downloading the file you can see all the data of the standard.
+
+![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla-resultados.png?raw=true)
+
+Or going into detail option
+
+![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla-detalle.png?raw=true)
 
 ## Data visualization
 This visualization is made using the D3.js library, and uses the crossfilter visualization scheme. The visualization allows to follow the contractual management of the entities allowing to visualize the percentages of hiring. This visualization complies with the following characteristics:
 1. drill down at entity level
 2. See behavior by entity, order, sector and year
 
+![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewVisualizacion.png?raw=true)
 ---
 The structure of the directory is that at the root of the WebContent is the visualization and in the table folder, the table view
