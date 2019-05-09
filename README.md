@@ -7,16 +7,13 @@ Este repositorio contiene dos visualizaciones de datos, en formato OCDS:
 
 ## Vista de tabla
 En este vista se tiene la lectura de los datos de una API, aplicando criterios de búsqueda. 
-
 ![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla.png?raw=true)
 
-Los datos se pueden visualizar de manera paginada (la misma que utiliza la API) y se pueden descargar en formato CSV. Si bien la vista se puede ver reducida en cantidad de datos, al descargar el archivo se puede ver todos los datos del estándar.
-
-![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla-resultados.png?raw=true)
+Los datos se pueden visualizar de manera painada (la misma que utiliza la API) y se pueden descargar en formato CSV. Si bien la vista se puede ver reducida en cantidad de datos, al descargar el archivo se puede ver todos los datos del estándar.
+![alt text](https://raw.githubusercontent.com/sdd1982/VisualizacionOCDS/master/docs/previewTabla-resultados.PNG)
 
 O cuando seleccione la opción de Ver detalle, al lado derecho de cada fila resultado.
-
-![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla-detalle.png?raw=true)
+![alt text](https://raw.githubusercontent.com/sdd1982/VisualizacionOCDS/master/docs/previewTabla-detalle.PNG)
 
 ## Visualización de datos
 Esta visualización está hecha haciendo uso de la librería D3.js, y utiliza el esquema de visualización crossfilter. La visualización permite hacer seguimiento a la gestión contractual de las entidades permitiendo visualizar lo porcentajes de contratación. Esta visualización cumple con las siguientes carcaterísticas:
@@ -37,16 +34,13 @@ This repository contains two data visualizations, in OCDS format:
 
 ## Table view
 In this view you can read the data of an API, applying search criteria. 
-
 ![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla.png?raw=true)
 
 The data can be displayed in a paired way (the same as the API) and can be downloaded in CSV format. Although the view can be reduced in quantity of data, when downloading the file you can see all the data of the standard.
-
-![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla-resultados.png?raw=true)
+![alt text](https://raw.githubusercontent.com/sdd1982/VisualizacionOCDS/master/docs/previewTabla-resultados.PNG)
 
 Or going into detail option
-
-![alt text](https://github.com/sdd1982/VisualizacionOCDS/blob/master/docs/previewTabla-detalle.png?raw=true)
+![alt text](https://raw.githubusercontent.com/sdd1982/VisualizacionOCDS/master/docs/previewTabla-detalle.PNG)
 
 ## Data visualization
 This visualization is made using the D3.js library, and uses the crossfilter visualization scheme. The visualization allows to follow the contractual management of the entities allowing to visualize the percentages of hiring. This visualization complies with the following characteristics:
